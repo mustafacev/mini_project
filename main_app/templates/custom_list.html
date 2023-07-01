@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% comment %} for head title tags and helping us with SEO {% endcomment %}
+{% block title %}Truck{% endblock  %}
+
+{% block content %}
+{% for custom in customs %}
+<h1>{{custom.name}}</h1>
+{% empty %}
+<p>No Custom Trucks Showing </p>
+{% endfor %}
+{% endblock %}
