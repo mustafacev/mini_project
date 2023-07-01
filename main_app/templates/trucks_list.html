@@ -1,31 +1,33 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% comment %} for head title tags and helping us with SEO {% endcomment %}
-{% block title %}Truck{% endblock  %}
-
-{% block content %}
-
-<h1 class="title pt-5">Antique Trucks List </h1>
-<div class="gallery">
-  {% for truck in trucks %}
-  <a href="">
+<h1 class="title pt-5">{{header}}</h1>
+<form class="mb-5" method="get">
+    <div class="field has-addons">
+        <div class="control">
+            <input class="input" type="text" name="name" placeholder="name" />
+        </div>
+        <div class="control">
+            <input class="button is-success" type="submit" value="Search" />
+        </div>
+    </div>
+    <!--  This anchor tag will redirect back to artist list without a query param -->
+    <a class="button is-dark" href="{% url 'trucks_list' %}">Clear Search</a>
+</form>
+<div class="gallery"></div>
+{% for truck in trucks %}
+<a href="">
     <div class="card">
-      <div class="card-image">
-        <figure class="image is-square">
-          <img src="{{truck.image}}" alt="{{truck.name}}" />
-        </figure>
-      </div>
-      <div class="card-header">
-        <p class="card-header-title">{{truck.name}}</p>
-      </div>
+        <div class="card-image">
+            <figure class="image is-square">
+                <img src="{{truck.img}}" alt="{{truck.name}}" />
+            </figure>
+        </div>
+        <div class="card-header">
+            <p class="card-header-title">{{truck.name}}</p>
+        </div>
     </div>
-  </a>
-	{% empty %}
-  <article class="message">
-    <div class="message-header">
-      <p>No Trucks Available</p>
-    </div>
-  </article>
-  {% endfor %}
+</a>
+
+{% endfor %}
 </div>
 {% endblock %}
