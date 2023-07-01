@@ -12,6 +12,7 @@
     </div>
     <!--  This anchor tag will redirect back to artist list without a query param -->
     <a class="button is-dark" href="{% url 'trucks_list' %}">Clear Search</a>
+    <a class="button is-dark" href="{% url 'trucks_create' %}">Add Truck</a>
 </form>
 <div class="gallery"></div>
 {% for truck in trucks %}

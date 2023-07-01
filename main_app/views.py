@@ -3,7 +3,7 @@ from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from .models import TruckBrand
-
+from django.views.generic.edit import CreateView
 # Create your views here.
 
 
@@ -72,3 +72,9 @@ customs = [
     Custom("Wild Chevy Crew Cab Dually Truck Is Reborn As A Rad Open-Roof Limo",
            "It started life as a 1980 Chevrolet heavy-duty crew-cab  pickup truck. ")
 ]
+
+class TrucksCreate(CreateView):
+    model = TruckBrand
+    fields = ['name', 'img', 'info', 'verified_truck']
+    template_name = "trucks_create.html"
+    success_url = "/trucks/"
