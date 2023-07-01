@@ -16,7 +16,7 @@
 </form>
 <div class="gallery"></div>
 {% for truck in trucks %}
-<a href="">
+<a href="{% url 'truck_detail' truck.pk %}">
     <div class="card">
         <div class="card-image">
             <figure class="image is-square">

@@ -3,7 +3,8 @@ from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from .models import TruckBrand
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView , UpdateView
+from django.views.generic import DetailView
 # Create your views here.
 
 
@@ -77,4 +78,14 @@ class TrucksCreate(CreateView):
     model = TruckBrand
     fields = ['name', 'img', 'info', 'verified_truck']
     template_name = "trucks_create.html"
+    success_url = "/trucks/"
+
+class TruckDetail(DetailView):
+    model = TruckBrand
+    template_name = "truck_detail.html"
+   
+class TruckUpdate(UpdateView):
+    model = TruckBrand
+    fields = ['name', 'img', 'info', 'verified_truck']
+    template_name = "truck_update.html"
     success_url = "/trucks/"
