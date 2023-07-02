@@ -29,3 +29,11 @@ class TruckModel(models.Model):
     
     def get_length(self):
         return time.strftime("%-M:%S", time.gmtime(self.max_speed))
+    
+class FavoriteTrucksList(models.Model):
+
+    name = models.CharField(max_length=150)
+    truck_model = models.ManyToManyField(TruckModel)
+
+    def __str__(self):
+        return self.name

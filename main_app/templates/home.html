@@ -1,4 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Antique Trucks</h1>
+<div class="home__favoritetruckmodel">
+    {% for favoritetruckmodels in favoritetruckmodel %}
+
+    <div class="modellist mb-5">
+        <h3 class="truckmodel is-3 has-text-success">{{ favoritetruckmodels.name }}</h3>
+        <hr />
+
+        {% for truck_model in favoritetruckslist_truck_model.all %}
+
+        <div class="truckmodel">
+            <span>{{forloop.counter}}</span>
+            <span><b>{{truckmodel.name}}</b></span>
+            <span>{{truckmodel.max_speed}} <b>km/h</b></span>
+        </div>
+        <a href="{% url 'favorite_trucks_list_truck_model_assoc' favoritetruckslist_truck_model.pk truckmodel.pk %}?assoc=remove"
+            class="button is-danger is-outlined">
+            <span class="icon is-small">
+                <i class="fas fa-times"></i>
+            </span>
+        </a>
+        </span>
+    </div>
+    {% endfor %}
+</div>
+{% empty %}
+<div class="favoritetruckmodel mb-5">"There are no Trucks in this list"</div>
+{% endfor %}
+</div>
 {% endblock %}

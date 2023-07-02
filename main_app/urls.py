@@ -11,4 +11,5 @@ urlpatterns = [
     path('trucks/<int:pk>/update/',views.TruckUpdate.as_view(), name="truck_update"),
     path('trucks/<int:pk>/delete',views.TruckDelete.as_view(), name="truck_delete"),
     path('trucks/<int:pk>/truckmodel/new/', views.TruckModelCreate.as_view(), name="truck_model_create"),
+    path('favoritetruckmodel/<int:pk>/truckmodel/<int:truck_model_pk>/', views.FavoriteTrucksListTruckModelAssoc.as_view(), name="favorite_trucks_list_truck_model_assoc"),
 ]

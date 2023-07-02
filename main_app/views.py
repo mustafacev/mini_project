@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
-from .models import TruckBrand, TruckModel
+from .models import TruckBrand, TruckModel , FavoriteTrucksList
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.shortcuts import redirect
@@ -10,9 +10,12 @@ from django.shortcuts import redirect
 
 
 class Home(TemplateView):
-    def get(self, request):
-        return HttpResponse(" Home")
-
+    template_name = "home.html"
+    # Here we have added the playlists as context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["favoritetruckmodel"] = FavoriteTrucksList.objects.all()
+        return context
 
 class About(TemplateView):
     template_name = "about.html"
@@ -87,7 +90,10 @@ class TrucksCreate(CreateView):
 class TruckDetail(DetailView):
     model = TruckBrand
     template_name = "truck_detail.html"
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["favoritetruckslist_truck_model"] = FavoriteTrucksList.objects.all()
+        return context
 
 class TruckUpdate(UpdateView):
     model = TruckBrand
@@ -111,3 +117,14 @@ class TruckModelCreate(View):
         TruckModel.objects.create(
             name=name, max_speed=max_speed, truck_brand=truck_brand)
         return redirect('truck_detail', pk=pk)
+
+class FavoriteTrucksListTruckModelAssoc(View):
+
+    def get(self, request, pk, truckmodel_pk):
+        # get the query param from the url
+        assoc = request.GET.get("assoc")
+        if assoc == "remove":
+            FavoriteTrucksList.objects.get(pk=pk).truck_model.remove(truckmodel_pk)
+        if assoc == "add":
+             FavoriteTrucksList.objects.get(pk=pk).truck_model.add(truckmodel_pk)
+        return redirect('home')
