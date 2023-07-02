@@ -14,7 +14,7 @@ class Home(TemplateView):
     # Here we have added the playlists as context
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["favoritetruckmodel"] = FavoriteTrucksList.objects.all()
+        context["favoritetruckslists"] = FavoriteTrucksList.objects.all()
         return context
 
 class About(TemplateView):
@@ -92,7 +92,7 @@ class TruckDetail(DetailView):
     template_name = "truck_detail.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["favoritetruckslist_truck_model"] = FavoriteTrucksList.objects.all()
+        context["favoritetruckslists"] = FavoriteTrucksList.objects.all()
         return context
 
 class TruckUpdate(UpdateView):
@@ -120,11 +120,11 @@ class TruckModelCreate(View):
 
 class FavoriteTrucksListTruckModelAssoc(View):
 
-    def get(self, request, pk, truckmodel_pk):
+    def get(self, request, pk, truck_model_pk):
         # get the query param from the url
         assoc = request.GET.get("assoc")
         if assoc == "remove":
-            FavoriteTrucksList.objects.get(pk=pk).truck_model.remove(truckmodel_pk)
+            FavoriteTrucksList.objects.get(pk=pk).truck_model.remove(truck_model_pk)
         if assoc == "add":
-             FavoriteTrucksList.objects.get(pk=pk).truck_model.add(truckmodel_pk)
+             FavoriteTrucksList.objects.get(pk=pk).truck_model.add(truck_model_pk)
         return redirect('home')

@@ -50,7 +50,7 @@
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
                 <div class="dropdown-content">
                     {% for favoritetruckslist in favoritetruckslists %}
-                    <a href="{% url 'favorite_trucks_list_truck_model_assoc' favoritetruckslist.pk truckmodel.pk %}?assoc=add"
+                    <a href="{% url 'favorite_trucks_list_truck_model_assoc' favoritetruckslist.pk truck_model.pk %}?assoc=add"
                         class="dropdown-item">{{ favoritetruckslist.name }}</a>
                     {% endfor %}
                 </div>
