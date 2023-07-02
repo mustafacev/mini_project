@@ -10,4 +10,5 @@ urlpatterns = [
     path('trucks/<int:pk>/', views.TruckDetail.as_view(), name="truck_detail"),
     path('trucks/<int:pk>/update/',views.TruckUpdate.as_view(), name="truck_update"),
     path('trucks/<int:pk>/delete',views.TruckDelete.as_view(), name="truck_delete"),
+    path('trucks/<int:pk>/truckmodel/new/', views.TruckModelCreate.as_view(), name="truck_model_create"),
 ]

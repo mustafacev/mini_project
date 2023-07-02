@@ -15,6 +15,39 @@
     <h1 class="title">{{truckbrand.name}}</h1>
 </div>
 <div class="detail__container">
+    <!-- inside container -->
+    <div class="detail__truckmodel mb-5">
+        <h3 class="title is-3">Truck Models</h3>
+        <form class="mb-5" action="{% url 'truck_model_create' truckbrand.pk %}" method="post">
+            {% csrf_token %}
+            <div class="field has-addons">
+                <div class="control">
+                    <input class="input" type="text" name="name" placeholder="Truck Model name" required />
+                </div>
+                <div class="control">
+                    <input class="input" type="number" name="max_speed" placeholder="Max Speed Km" min="1" required />
+                </div>
+                <div class="control">
+                    <input class="button is-primary" type="submit" value="Add Customize models" />
+                </div>
+            </div>
+        </form>
+        {% for truck_model in truckbrand.truck_model.all %}
+        <div class="truckmodel">
+            <span>{{forloop.counter}}</span>
+            <span><b>{{truck_model.name}}</b></span>
+            <span><b>{{truck_model.max_speed}} <b>km/h</b></span>
+        </div>
+        {% empty %}
+        <article class="message">
+            <div class="message-header">
+                <p>There is no models Showing</p>
+            </div>
+        </article>
+
+        {% endfor %}
+    </div>
+    <!--  above about section  -->
     <div class="buttons">
         <a href="{% url 'truck_update' truckbrand.pk %}" class="button is-info">Update
             <span class="icon">

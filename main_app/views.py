@@ -2,14 +2,16 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
-from .models import TruckBrand
-from django.views.generic.edit import CreateView , UpdateView,DeleteView
+from .models import TruckBrand, TruckModel
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
+from django.shortcuts import redirect
 # Create your views here.
 
 
 class Home(TemplateView):
-    template_name = "home.html"
+    def get(self, request):
+        return HttpResponse(" Home")
 
 
 class About(TemplateView):
@@ -74,23 +76,38 @@ customs = [
            "It started life as a 1980 Chevrolet heavy-duty crew-cab  pickup truck. ")
 ]
 
+
 class TrucksCreate(CreateView):
     model = TruckBrand
     fields = ['name', 'img', 'info', 'verified_truck']
     template_name = "trucks_create.html"
     success_url = "/trucks/"
 
+
 class TruckDetail(DetailView):
     model = TruckBrand
     template_name = "truck_detail.html"
-   
+
+
 class TruckUpdate(UpdateView):
     model = TruckBrand
     fields = ['name', 'img', 'info', 'verified_truck']
     template_name = "truck_update.html"
     success_url = "/trucks/"
 
+
 class TruckDelete(DeleteView):
     model = TruckBrand
     template_name = "truck_delete_confirmation.html"
     success_url = "/trucks/"
+
+
+class TruckModelCreate(View):
+
+    def post(self, request, pk):
+        name = request.POST.get("name")
+        max_speed = request.POST.get("max_speed")
+        truck_brand = TruckBrand.objects.get(pk=pk)
+        TruckModel.objects.create(
+            name=name, max_speed=max_speed, truck_brand=truck_brand)
+        return redirect('truck_detail', pk=pk)
