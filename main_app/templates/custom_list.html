@@ -6,6 +6,7 @@
 {% block content %}
 {% for custom in customs %}
 <h1>{{custom.name}}</h1>
+<a class="button is-dark" href="{% url 'trucks_create' %}">Add Truck</a>
 {% empty %}
 <p>No Custom Trucks Showing </p>
 {% endfor %}

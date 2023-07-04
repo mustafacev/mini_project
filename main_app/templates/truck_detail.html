@@ -37,50 +37,54 @@
             <span>{{forloop.counter}}</span>
             <span><b>{{truck_model.name}}</b></span>
             <span><b>{{truck_model.max_speed}} <b>km/h</b></span>
+            <span>
+                <div class="dropdown">
+                    <div class="dropdown-trigger">
+                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span>Add to Fav list</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            {% for favoritetruckslist in favoritetruckslists %}
+                            <a href="{% url 'favorite_trucks_list_truck_model_assoc' favoritetruckslist.pk truck_model.pk %}?assoc=add"
+                                class="dropdown-item">{{ favoritetruckslist.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <span>
         </div>
-        <div class="dropdown">
-            <div class="dropdown-trigger">
-                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                    <span>Add to Fav list</span>
-                    <span class="icon is-small">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </button>
+        {% empty %}
+        <article class="message">
+            <div class="message-header">
+                <p>There is no models Showing</p>
             </div>
-            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                <div class="dropdown-content">
-                    {% for favoritetruckslist in favoritetruckslists %}
-                    <a href="{% url 'favorite_trucks_list_truck_model_assoc' favoritetruckslist.pk truck_model.pk %}?assoc=add"
-                        class="dropdown-item">{{ favoritetruckslist.name }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% empty %}
-            <article class="message">
-                <div class="message-header">
-                    <p>There is no models Showing</p>
-                </div>
-            </article>
+        </article>
 
-            {% endfor %}
-        </div>
-        <!--  above about section  -->
-        <div class="buttons">
-            <a href="{% url 'truck_update' truckbrand.pk %}" class="button is-info">Update
-                <span class="icon">
-                    <i class="fas fa-edit"></i>
-                </span>
-            </a>
-            <a href="{% url 'truck_delete' truckbrand.pk %}" class="button is-danger">Delete
-                <span class="icon">
-                    <i class="fas fa-trash-alt"></i>
-                </span>
-            </a>
-        </div>
-        <div class="detail__about">
-            <h4 class="title is-4">About</h4>
-            <p>{{truckbrand.info}}</p>
-        </div>
+        {% endfor %}
     </div>
+    <!--  above about section  -->
+    <div class="buttons">
+        <a href="{% url 'truck_update' truckbrand.pk %}" class="button is-info">Update
+            <span class="icon">
+                <i class="fas fa-edit"></i>
+            </span>
+        </a>
 
-    {% endblock %}
+        <span class="icon">
+            <a href="{% url 'truck_delete' truckbrand.pk %}" class="button is-danger">Delete
+                <i class="fas fa-trash-alt"></i>
+        </span>
+        </a>
+    </div>
+    <div class="detail__about">
+        <h4 class="title is-4">About</h4>
+        <p>{{truckbrand.info}}</p>
+    </div>
+</div>
+
+{% endblock %}
